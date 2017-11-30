@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/addtab_button"
+        android:title="@string/add_tab"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/edittab_button"
+        android:title="@string/edit_tab"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/deletetab_button"
+        android:title="@string/delete_tab"
+        app:showAsAction="never"
+        />
+
+</menu>

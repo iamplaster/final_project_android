@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TweetPorter</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">OPEN</string>
+    <string name="drawer_close">OPEN</string>
+    <string name="options">Options</string>
+    <string name="edit_tab">Edit tab</string>
+    <string name="delete_tab">Delete tab</string>
+    <string name="make_it_notify">Make it notify</string>
+    <string name="add_tab">Add tab</string>
+    <string name="tab_name">Tab name</string>
+    <string name="enter_tab_name">Enter tab name</string>
+    <string name="type">Type</string>
+    <string name="user">User</string>
+    <string name="keyword">Keyword</string>
+    <string name="input">Input</string>
+    <string name="add_topic">Add topic</string>
+    <string name="edit_name">Edit name</string>
+
+    <string name="com.twitter.sdk.android.CONSUMER_KEY"> vJVURGNgU9ivcSEySuDOx1yF9</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">mgr0Iihry5ouzxzSYamvsRhYcoQhri6LJYHzX8Uw1XGpW4UmPz</string>
+    <string name="home">Home</string>
+    <string name="saved">Saved</string>
+    <string name="switch_to_night_mode">Switch Day/Night Mode</string>
+    <string name="logout">Logout</string>
+    <string name="save_this">Save this</string>
+    <string name="go_to_tweet">Go to tweet</string>
+    <string name="delete_save">Delete</string>
+    <string name="name">Name</string>
+</resources>
