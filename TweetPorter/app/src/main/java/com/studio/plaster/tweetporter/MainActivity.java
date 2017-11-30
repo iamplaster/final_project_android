@@ -154,19 +154,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     public void loadPage(){
-        //add tablist manually
-        TabList demoTabList = new TabList();
-        demoTabList.setName("Tab A");
-        List<Post> postList = new ArrayList<>();
-        Post post = new Post();
-        post.setName("Plaster");
-        post.setProfileImg("https://winblogs.azureedge.net/win/2016/09/Windows-10-features-560x315.jpg");
-        post.setContentText("test Text");
-        post.setContentImg(null);
-        postList.add(post);
-        demoTabList.setPostList(postList);
-        //getInfoObject.addTab(demoTabList);
-
         getInfoObject.setListener(this);
         getInfoObject.getTabs();
 
