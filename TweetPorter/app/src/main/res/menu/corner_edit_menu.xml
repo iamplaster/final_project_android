@@ -19,10 +19,6 @@
         android:title="@string/delete_tab"
         app:showAsAction="never"
         />
-    <item
-        android:id="@+id/notifytab_button_edit"
-        android:title="@string/make_it_notify"
-        app:showAsAction="never"
-        />
+
 
 </menu>
