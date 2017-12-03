@@ -7,11 +7,16 @@
     tools:context="com.studio.plaster.tweetporter.SplashActivity"
     android:orientation="vertical"
     android:gravity="center">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logoapp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tweetporter"
-        android:textSize="50sp"
+        android:textSize="20sp"
         android:textColor="#222222"/>
 
 </LinearLayout>

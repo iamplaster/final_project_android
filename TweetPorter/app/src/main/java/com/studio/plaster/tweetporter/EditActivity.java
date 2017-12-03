@@ -120,8 +120,6 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
             case R.id.deletetab_button_edit:
                 getInfoObject.deleteTab(this.tabList,0);
                 return true;
-            case R.id.notifytab_button_edit:
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

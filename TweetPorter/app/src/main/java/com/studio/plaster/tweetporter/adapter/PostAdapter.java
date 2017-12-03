@@ -4,8 +4,10 @@ package com.studio.plaster.tweetporter.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,15 +52,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        if(postList.get(position).getContentImg() != null){
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,800);
-            holder.relativeLayout.setLayoutParams(layoutParams);
-        }
         Glide.with(context).load(postList.get(position).getProfileImg()).into(holder.imageProfile);
         holder.accName.setText(postList.get(position).getName());
         holder.contentText.setText(postList.get(position).getContentText());
         if(postList.get(position).getContentImg() != null){
             Glide.with(context).load(postList.get(position).getContentImg()).into(holder.contentImg);
+            Resources resources = context.getResources();
+            float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, resources.getDisplayMetrics());
+            holder.contentImg.getLayoutParams().height = Math.round(px);
         }
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -111,14 +112,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder>{
         TextView accName;
         TextView contentText;
         ImageView contentImg;
-        RelativeLayout relativeLayout;
         public MyViewHolder(View itemView) {
             super(itemView);
             imageProfile = itemView.findViewById(R.id.imgProfile);
             accName = itemView.findViewById(R.id.accName);
             contentText = itemView.findViewById(R.id.contentText);
             contentImg = itemView.findViewById(R.id.contentImg);
-            relativeLayout = itemView.findViewById(R.id.post_layout);
         }
     }
 
