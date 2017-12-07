@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         String twit_access_token = sharedPreferences.getString("PREF_KEY_OAUTH_TOKEN", "");
         String twit_access_token_secret = sharedPreferences.getString("PREF_KEY_OAUTH_SECRET", "");
 
+
         getInfoObject = new GetInfoObject();
         tao = new TwitterAccessObject();
         tao.setTWITTER_CONSUMER_KEY(TWITTER_CONSUMER_KEY);
@@ -351,6 +352,17 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         else{
             Toast.makeText(this, "Cannot delete tab anymore", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public List<TabList> getTabLists(){
+        return tabLists;
+    }
+
+    public ViewPager getPager(){
+        return mPager;
+    }
+    public PageAdapter getPageAdapter(){
+        return mPageAdapter;
     }
 
 
