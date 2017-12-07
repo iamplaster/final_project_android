@@ -179,25 +179,16 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        if(item.getItemId() == R.id.addtab_button){
-            addTabDialog();
-
-        }
-
-        if(item.getItemId() == R.id.edittab_button){
-            Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra("tablist",tabLists.get(mPager.getCurrentItem()));
-            lastPosition = mPager.getCurrentItem();
-            startActivityForResult(intent, 1);
-
-        }
-        if(item.getItemId() == R.id.deletetab_button){
-            if(tabLists.size() > 1){
-                getInfoObject.deleteTab(tabLists.get(mPager.getCurrentItem()), mPager.getCurrentItem());
-            }
-            else{
-                Toast.makeText(this, "Cannot delete tab anymore", Toast.LENGTH_SHORT).show();
-            }
+        switch (item.getItemId()){
+            case R.id.addtab_button:
+                addTabDialog();
+                return true;
+            case R.id.edittab_button:
+                editTabButton();
+                return true;
+            case R.id.deletetab_button:
+                deleteTabButton();
+                return true;
 
         }
         return super.onOptionsItemSelected(item);
@@ -261,6 +252,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
             isDelTab = false;
         }
         swipeRefreshLayout.setRefreshing(false);
+        if(tabLists.size() == 0){
+            addTab("Home");
+        }
 
     }
 
@@ -341,6 +335,22 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     public void goToSavedPage(){
         Intent intentSaved = new Intent(this, SavedActivity.class);
         startActivity(intentSaved);
+    }
+
+    public void editTabButton(){
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("tablist",tabLists.get(mPager.getCurrentItem()));
+        lastPosition = mPager.getCurrentItem();
+        startActivityForResult(intent, 1);
+    }
+
+    public void deleteTabButton(){
+        if(tabLists.size() > 1){
+            getInfoObject.deleteTab(tabLists.get(mPager.getCurrentItem()), mPager.getCurrentItem());
+        }
+        else{
+            Toast.makeText(this, "Cannot delete tab anymore", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
