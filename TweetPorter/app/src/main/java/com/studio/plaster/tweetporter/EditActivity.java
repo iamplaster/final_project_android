@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.studio.plaster.tweetporter.adapter.EditAdpater;
 import com.studio.plaster.tweetporter.model.TabList;
@@ -37,6 +38,9 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
     private TabList tabList;
     private List<String> keywords;
     private EditAdpater editAdpater;
+    private int spaceCount;
+    private int tabListsSize;
+    private int currentPage;
 
 
     @Override
@@ -58,6 +62,8 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
 
         Intent intent = getIntent();
         this.tabList = intent.getParcelableExtra("tablist");
+        this.tabListsSize = intent.getIntExtra("tabsize", 0);
+        this.currentPage = intent.getIntExtra("currenttab", 0);
 
         keywords = this.tabList.getKeywordList();
         FloatingActionButton addButton = findViewById(R.id.fabAdd);
@@ -118,7 +124,7 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
                 addTabDialog();
                 return true;
             case R.id.deletetab_button_edit:
-                getInfoObject.deleteTab(this.tabList,0);
+                deleteTabButton();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -136,9 +142,14 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                tabList.setName(name.getText().toString());
-                getInfoObject.updateTab(tabList);
-                setResult(RESULT_OK);
+                if(name.getText().toString().length() <= 0){
+                    Toast.makeText(EditActivity.this, "Tab name can't be empty, Please try again", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    tabList.setName(name.getText().toString());
+                    getInfoObject.updateTab(tabList);
+                    setResult(RESULT_OK);
+                }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -168,15 +179,24 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(radioUser.isChecked()){
-                            keywords.add("@"+keyword.getText().toString());
+                        if(!radioUser.isChecked() && !radioKeyword.isChecked()){
+                            Toast.makeText(EditActivity.this, "Type of topic must be selected, please try again., ", Toast.LENGTH_SHORT).show();
+                        }else{
+                            if(keyword.getText().toString().length() <= 0){
+                                Toast.makeText(EditActivity.this, "Topic can't be empty, please try again., ", Toast.LENGTH_SHORT).show();
+                            }else{
+                                if(radioUser.isChecked()){
+                                    keywords.add("@"+keyword.getText().toString());
+                                }
+                                if(radioKeyword.isChecked()){
+                                    keywords.add("#"+keyword.getText().toString());
+                                }
+                                tabList.setKeywordList(keywords);
+                                getInfoObject.updateTab(tabList);
+                                setResult(RESULT_OK);
+                            }
+
                         }
-                        if(radioKeyword.isChecked()){
-                            keywords.add("#"+keyword.getText().toString());
-                        }
-                        tabList.setKeywordList(keywords);
-                        getInfoObject.updateTab(tabList);
-                        setResult(RESULT_OK);
 
                     }
                 }).setNegativeButton("Cancel",
@@ -203,10 +223,21 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(TextUtils.isEmpty(editable) && radioKeyword.isChecked()){
+                if(TextUtils.isEmpty(editable) || !radioKeyword.isChecked() && !radioUser.isChecked()){
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                }else{
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+                else{
+                    spaceCount = 0;
+                    for(int i = 0; i < editable.toString().length(); i++){
+                        if(editable.toString().charAt(i) == ' '){
+                            spaceCount++;
+                        }
+                    }
+                    if(spaceCount == editable.toString().length()){
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    }else{
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
                 }
             }
         });
@@ -246,6 +277,15 @@ public class EditActivity extends AppCompatActivity implements AsyncResponseEdit
         editAdpater.setKeywords(keywords);
         recyclerView.setAdapter(editAdpater);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void deleteTabButton(){
+        if(tabListsSize > 1){
+            getInfoObject.deleteTab(this.tabList,currentPage);
+        }
+        else{
+            Toast.makeText(this, "Can't delete tab anymore", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

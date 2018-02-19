@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
     public void byPassLogIn(){
         SharedPreferences share = getSharedPreferences("AUTHEN_PREF", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = share.edit();
-        editor.putString("PREF_KEY_OAUTH_TOKEN", "938798561260486656-V9CfQGgIxD9hWYKEx85LpWHSx0buJEj");
-        editor.putString("PREF_KEY_OAUTH_SECRET", "P9U4banIg52MCP0MDVKGHgthknWcVZCnFguxkYVuimA8W");
+        editor.putString("PREF_KEY_OAUTH_TOKEN", "");
+        editor.putString("PREF_KEY_OAUTH_SECRET", "");
         editor.putBoolean("HAS_LOGIN", true);
         editor.apply();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

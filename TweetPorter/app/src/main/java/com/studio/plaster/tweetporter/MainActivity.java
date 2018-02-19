@@ -1,6 +1,7 @@
 package com.studio.plaster.tweetporter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -293,7 +294,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addTab(tabName.getText().toString());
+                        if (tabName.getText().toString().length() <= 0){
+                            Toast.makeText(MainActivity.this, "Tab name can't be empty, Please try again", Toast.LENGTH_SHORT).show();
+                        }else{
+                            addTab(tabName.getText().toString());
+                        }
                     }
                 }).setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
@@ -341,6 +346,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     public void editTabButton(){
         Intent intent = new Intent(this, EditActivity.class);
         intent.putExtra("tablist",tabLists.get(mPager.getCurrentItem()));
+        intent.putExtra("currenttab",mPager.getCurrentItem());
+        intent.putExtra("tabsize",tabLists.size());
         lastPosition = mPager.getCurrentItem();
         startActivityForResult(intent, 1);
     }
@@ -350,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
             getInfoObject.deleteTab(tabLists.get(mPager.getCurrentItem()), mPager.getCurrentItem());
         }
         else{
-            Toast.makeText(this, "Cannot delete tab anymore", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Can't delete tab anymore", Toast.LENGTH_SHORT).show();
         }
     }
 
